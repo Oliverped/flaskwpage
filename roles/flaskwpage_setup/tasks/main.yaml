@@ -1,0 +1,20 @@
+---
+- name: create flaskwpage folder, permissions
+  file:
+    path: "{{ wDir}}{{flaskwpageDir }}"
+    state: directory
+
+- name: create flaskwpage templates folder, permissions
+  file:
+    path: "{{ wDir }}{{ flaskwpageDir }}{{ flaskwpageTemplatesDir }}"
+    state: directory
+
+- name: copy flaskwpage app.py
+  copy:
+    src: "{{ flaskwpageApp }}" 
+    dest: "{{ wDir}}{{flaskwpageDir }}{{ flaskwpageApp }}"
+
+- name: copy flaskwpage home.html
+  copy:
+    src: "{{ flaskwpageHome }}" 
+    dest: "{{ wDir }}{{ flaskwpageDir }}{{ flaskwpageTemplatesDir }}{{ flaskwpageHome }}"

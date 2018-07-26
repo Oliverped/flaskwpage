@@ -1,0 +1,26 @@
+---
+- name: install supervisor
+  apt: name={{item}} state=latest update_cache=yes allow_unauthenticated=yes
+  with_items:
+    - supervisor
+
+- name: create flaskwpage log folders
+  file:
+    path: "{{ flaskwpageLog }}"
+    state: directory
+
+- name: copy flaskwpage.conf for supervisor
+  copy:
+    src: "{{ flaskwpageConfSv }}" 
+    dest: "{{ SvConfDir }}{{ flaskwpageConfSv }}"
+
+- name: copy nginx.conf for supervisor
+  copy:
+    src: "{{ nginxConfSv }}" 
+    dest: "{{ SvConfDir }}{{ nginxConfSv }}"
+
+- name: reread 
+  command: supervisorctl reread
+
+- name: reread 
+  command: supervisorctl update 

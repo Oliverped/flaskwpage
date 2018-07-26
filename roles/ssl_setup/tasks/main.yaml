@@ -1,0 +1,30 @@
+- name: create ssl certificates folder
+  file:
+    path: "{{ nxDir }}{{ nxSslDir }}"
+    state: directory
+
+- name: copy flaskwpage.crt 
+  copy:
+    src: "{{ flaskwpageCrt }}" 
+    dest: "{{ nxDir }}{{ nxSslDir }}"
+
+- name: copy flaskwpage.key 
+  copy:
+    src: "{{ flaskwpageKey }}" 
+    dest: "{{ nxDir }}{{ nxSslDir }}"
+
+
+# - name: create new key
+#   command: openssl genrsa 1024 > flaskwpage.key
+#   args:
+#     chdir: "{{ nxDir }}{{ nxSslDir }}"
+
+# - name: create new csr
+#   command: openssl req -new -key flaskwpage.key -subj "/C=CZ/ST=Prague/L=Prague/O=flaskwpage/OU=flaskwpage/CN=ubuntu/emailAddress=flaskwpage@flaskwpage.com" > flaskwpage.csr
+#   args:
+#     chdir: "{{ nxDir }}{{ nxSslDir }}"
+
+# - name: create new crt
+#   command: openssl x509 -in flaskwpage.csr -out flaskwpage.crt -req -signkey flaskwpage.key -days 365
+#   args:
+#     chdir: "{{ nxDir }}{{ nxSslDir }}"

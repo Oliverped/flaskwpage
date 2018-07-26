@@ -1,0 +1,26 @@
+---
+- name: install nginx
+  apt: name={{item}} state=latest update_cache=yes allow_unauthenticated=yes
+  with_items:
+    - nginx
+
+- name: copy flaskwpage.conf to nginx sites-available dir
+  copy:
+    src: "{{ flaskwpageConf }}" 
+    dest: "{{ nxSA }}{{ flaskwpageConf }}"
+
+- name: make ln for sites-enabled
+  file:
+    src: "{{ nxSA }}/{{ flaskwpageConf }}"
+    dest: "{{ nxSE }}/{{ flaskwpageConf }}"
+    state: link
+
+- name: stop nginx
+  service: 
+    name: nginx
+    state: stopped
+
+- name: disable nginx
+  command: update-rc.d -f nginx disable
+  become: yes
+  become_method: sudo

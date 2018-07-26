@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>"Pedro Oliveira - Homework"</title>
+</head>
+<body>
+	{% for posts in posts %}
+		<h1>Server Name: {{ posts.sname }}</h1>
+		<p>Date: {{ posts.sdate }}</p>
+		<p>IP address: {{ posts.sip }}<p/>
+	{% endfor %}
+	{% for dyv in dyv %}
+		<meta http-equiv="refresh" content="10" />
+		<p>CPU usage: {{ dyv.scpu }}</p>
+                <p>Time: {{ dyv.stime }}</p>
+	{% endfor %}
+</body>
+</html>

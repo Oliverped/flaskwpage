@@ -1,0 +1,37 @@
+---
+#Pedro Oliveira Homework
+
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars:
+    nxDir: /etc/nginx/
+    nxSslDir: ssl/
+    flaskwpageKey: flaskwpage.key
+    flaskwpageCrt: flaskwpage.crt
+    nxSA: /etc/nginx/sites-available/
+    nxSE: /etc/nginx/sites-enabled/
+    flaskwpageConf: flaskwpage.conf
+    wDir: /var/www/
+    flaskwpageDir: flaskwpage/
+    flaskwpageTemplatesDir: templates/
+    flaskwpageApp: app.py
+    flaskwpageHome: home.html
+    flaskwpageLog: /var/log/flaskwpage/
+    SvConfDir: /etc/supervisor/conf.d/
+    flaskwpageConfSv: flaskwpage.conf
+    nginxConfSv: nginx.conf
+
+  roles:
+   - role: nginx_setup
+   - role: ssl_setup
+   - role: python_setup
+   - role: supervisor_setup
+   - role: flaskwpage_setup
+
+  tasks:
+    - name: restart nginx
+      command: supervisorctl start nginx
+
+    - name: restart flaskwpage
+      command: supervisorctl start flaskwpage

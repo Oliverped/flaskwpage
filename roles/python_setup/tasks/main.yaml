@@ -1,0 +1,10 @@
+---
+- name: install python, python-pip
+  apt: name={{item}} state=latest update_cache=yes allow_unauthenticated=yes
+  with_items:
+    - python
+    - python-pip
+
+- name: Installing multiple python packages in Ansible
+  pip:
+    name: Flask, psutil
